@@ -26,7 +26,7 @@ services:
       - ./volumes/storage:/data:z
 
   minio-createbucket:
-    image: quay.io/minio/mc:RELEASE.2023-11-01T18-05-16Z
+    image: minio/mc:latest
     platform: linux/amd64
     depends_on:
       minio:
