@@ -1,6 +1,6 @@
 services:
   minio:
-    image: quay.io/minio/minio:RELEASE.2024-10-02T17-50-41Z
+    image: quay.io/minio/minio:RELEASE.2023-11-01T01-57-10Z-cpuv1
     platform: linux/amd64
     ports:
       - "9000:9000"
@@ -26,7 +26,8 @@ services:
       - ./volumes/storage:/data:z
 
   minio-createbucket:
-    image: quay.io/minio/mc:RELEASE.2023-10-30T18-43-32Z
+    image: quay.io/minio/mc:RELEASE.2023-11-01T18-05-16Z
+    platform: linux/amd64
     depends_on:
       minio:
         condition: service_healthy
