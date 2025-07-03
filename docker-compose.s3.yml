@@ -1,6 +1,7 @@
 services:
   minio:
-    image: quay.io/minio/minio:RELEASE.2023-11-01T01-57-10Z-cpuv1
+    image: quay.io/minio/minio:RELEASE.2024-10-02T17-50-41Z
+    platform: linux/amd64
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -11,8 +12,14 @@ services:
       MINIO_BROWSER_REDIRECT_URL: http://localhost:9001
     command: server --console-address ":9001" /data
     healthcheck:
-      test: ["CMD", "mc", "ready", "local"]
-      interval: 2s
+      test:
+        [
+          "CMD",
+          "/bin/sh",
+          "-c",
+          "curl -f http://localhost:9000/minio/health/live || exit 1",
+        ]
+      interval: 5s
       timeout: 10s
       retries: 5
     volumes:
