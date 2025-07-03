@@ -81,14 +81,14 @@ services:
     image: supabase/gotrue:v2.176.1
     restart: unless-stopped
     healthcheck:
-      test: [
+      test:
+        [
           "CMD",
           "wget",
           "--no-verbose",
           "--tries=1",
           "--spider",
-          # "http://auth:9999/health"
-          "http://10.10.1.42:9999/health",
+          "http://localhost:9999/health",
         ]
       timeout: 5s
       interval: 5s
@@ -191,7 +191,8 @@ services:
       analytics:
         condition: service_healthy
     healthcheck:
-      test: [
+      test:
+        [
           "CMD",
           "curl",
           "-sSfL",
@@ -200,8 +201,7 @@ services:
           "/dev/null",
           "-H",
           "Authorization: Bearer ${ANON_KEY}",
-          # "http://realtime-dev.supabase-realtime:4000/api/tenants/realtime-dev/health"
-          "http://10.10.1.42:4000/api/tenants/realtime-dev/health",
+          "http://localhost:4000/api/tenants/realtime-dev/health",
         ]
       timeout: 5s
       interval: 5s
@@ -335,8 +335,7 @@ services:
     #     target: /opt/app/rel/logflare/bin/gcloud.json
     #     read_only: true
     healthcheck:
-      # test: ["CMD", "curl", "-f", "http://analytics:4000/health"]
-      test: ["CMD", "curl", "http://10.10.1.42:4000/health"]
+      test: ["CMD", "curl", "http://localhost:4000/health"]
       timeout: 5s
       interval: 5s
       retries: 10
